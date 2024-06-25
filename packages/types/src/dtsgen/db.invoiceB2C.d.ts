@@ -23,6 +23,7 @@ declare namespace DBInvoiceb2c {
         id: string;
         value: {
           billingAmountAfterTax: kintone.fieldTypes.Number;
+          billingAmountBeforeTax: kintone.fieldTypes.Number;
           invoiceItem: kintone.fieldTypes.SingleLineText;
         };
       }>;

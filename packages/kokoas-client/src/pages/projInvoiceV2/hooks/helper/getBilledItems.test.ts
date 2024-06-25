@@ -18,6 +18,7 @@ describe('getBilledItems', () => {
         id: '',
         value: {
           billingAmountAfterTax: { value: '300000' },
+          billingAmountBeforeTax: { value: '272727' },
           invoiceItem: { value: '契約-最終金' },
         },
       };
@@ -34,6 +35,7 @@ describe('getBilledItems', () => {
 
     const result = getBilledItems({
       invoices,
+      invoiceId: '',
     });
 
     console.log('結果', result);

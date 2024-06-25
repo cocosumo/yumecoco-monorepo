@@ -7,12 +7,24 @@ z.setErrorMap(zodErrorMapJA());
 export const payMethods = ['持参', '集金', '振込'] as const;
 
 const invoiceDetail = z.object({
+  /** 項目ID */
+  invoiceDetailId: z.string(),
+
   /** 請求項目 */
   invoiceItem: z.string(),
 
   /** 請求金額 */
   billingAmount: z.number(),
 
+}).refine(data => {
+  // invoiceItemが空でない時、billingAmountも空ではいけない
+  if (data.invoiceItem.trim() !== '') {
+    return data.billingAmount !== null && data.billingAmount !== undefined;
+  }
+  return true;
+}, {
+  message: '請求金額が入力されていません',
+  path: ['billingAmount'],
 });
 
 export const schema = z.object({
@@ -41,6 +53,9 @@ export const schema = z.object({
 
   /** 顧客グループ番号 */
   custGroupId: z.string(),
+
+  /** 顧客名 */
+  custName: z.string(),
 
   /** 工事名 */
   projName: z.string(),
@@ -80,10 +95,14 @@ export const schema = z.object({
   payMethodPlan: z.string().optional(),
 
   /** 請求内容 */
-  invoiceDetails: z.array(invoiceDetail),
+  invoiceDetails: z.array(invoiceDetail)
+    .min(1, { message: '請求金額が入力されていません' }),
 
   /** 備考 */
   remarks: z.string(),
+
+  /** 入金状態(ステータス) */
+  paymentStatus: z.string(),
 
 });
 

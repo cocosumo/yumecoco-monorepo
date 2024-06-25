@@ -1,16 +1,22 @@
 import { Button } from '@mui/material';
+import { useSaveHandler } from '../../hooks/useSaveHandler';
 
 
 
-export const SaveInvoice = () => {
+export const SaveInvoice = ({
+  disabled,
+}: {
+  disabled: boolean
+}) => {
+
+  const handleSave = useSaveHandler();
 
   return (
     <Button
       variant={'contained'}
       color='info'
-      onClick={() => {
-        alert('開発中です');
-      }}
+      onClick={handleSave}
+      disabled={disabled}
     >
       保存
     </Button >

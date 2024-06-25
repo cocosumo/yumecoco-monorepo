@@ -1,5 +1,5 @@
 import { IContracts, IInvoiceb2c, IProjects } from 'types';
-import { TForm } from '../schema';
+import { TForm, TInvoiceDetails } from '../schema';
 import { Big } from 'big.js';
 import { initInvDetailsValue } from '../form';
 import { sortContracts } from '../helper/sortContracts';
@@ -24,6 +24,7 @@ export const convertInvoiceToForm = ({
     dataId,
     uuid,
     custGroupId,
+    custNames,
     agents,
   } = projectRec;
   const personInCharge = agents.value.find(({ value: { agentName, agentType } }) => {
@@ -33,7 +34,7 @@ export const convertInvoiceToForm = ({
   const hasExcludedPlanContractAmt = contractRec.some(({ includePlanContractAmt, contractType }) =>
     (includePlanContractAmt.value === '1') && (contractType.value === '契約'));
 
-  
+
   const sortedContracts = sortContracts(contractRec);
 
   const contractDatas = sortedContracts.reduce((acc, {
@@ -67,16 +68,18 @@ export const convertInvoiceToForm = ({
     invoiceRec?.find(({ uuid: invRecId }) => invRecId.value === invoiceId);
   })();
 
-  const invoiceDetails = (() => {
+  const invoiceDetails: TInvoiceDetails = (() => {
     if (!tgtInvRec) return [initInvDetailsValue];
 
     return tgtInvRec?.invoiceDetails?.value.map(({
+      id,
       value: {
         billingAmountAfterTax,
         invoiceItem,
       },
     }) => {
       return ({
+        invoiceDetailId: id,
         invoiceItem: invoiceItem.value,
         billingAmount: +billingAmountAfterTax.value,
       });
@@ -98,13 +101,14 @@ export const convertInvoiceToForm = ({
 
 
   return {
-    invoiceId: tgtInvRec?.uuid?.value || '',
-    invoiceStatus: tgtInvRec?.invoiceStatus?.value || '',
-    invoiceDataId: tgtInvRec?.invoiceDataId?.value || '',
+    invoiceId: undefined,
+    invoiceStatus: '新規作成',
+    invoiceDataId: '',
     contractIds: contractDatas.validContracts,
     excludedPlanContracts: contractDatas.planContract,
     hasExcludedPlanContractAmt: hasExcludedPlanContractAmt,
     custGroupId: custGroupId.value,
+    custName: custNames.value,
     projId: uuid.value,
     projName: projName.value || '',
     storeName: store.value || '',
@@ -117,8 +121,9 @@ export const convertInvoiceToForm = ({
     billingTotalAmount: billedAmount || 0,
     invoiceIssueDate: null,
     scheduledPayDate: null,
-    payMethodPlan: tgtInvRec?.payMethodPlan?.value || '',
-    remarks: tgtInvRec?.remarks?.value || '',
+    payMethodPlan: '',
+    remarks: '',
+    paymentStatus: '',
 
     invoiceDetails: invoiceDetails,
   };

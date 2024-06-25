@@ -13,6 +13,7 @@ import { CustomerInfo } from './sections/CustomerInfo';
 import { ProjInfo } from './sections/ProjInfo';
 import { InputInvoice } from './sections/InputInvoice';
 import { Actions } from './sections/actions/Actions';
+import { AlertMessage } from './sections/AlertMessage';
 
 
 export const FormInvoice = () => {
@@ -63,6 +64,8 @@ export const FormInvoice = () => {
             <ContractInfo />
 
             <InputInvoice />
+
+            <AlertMessage />
 
             <Actions />
           </Fragment>

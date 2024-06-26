@@ -1,5 +1,5 @@
 import { IContracts, IInvoiceb2c, IProjects } from 'types';
-import { TForm, TInvoiceDetails } from '../schema';
+import { TForm } from '../schema';
 import { Big } from 'big.js';
 import { initInvDetailsValue } from '../form';
 import { sortContracts } from '../helper/sortContracts';
@@ -10,7 +10,6 @@ export const convertInvoiceToForm = ({
   invoiceRec,
   projectRec,
   contractRec,
-  invoiceId,
 }: {
   invoiceRec: IInvoiceb2c[] | undefined
   projectRec: IProjects
@@ -61,31 +60,6 @@ export const convertInvoiceToForm = ({
     .round()
     .toNumber();
 
-
-
-  const tgtInvRec = (() => {
-    if (!invoiceId) return {} as IInvoiceb2c;
-    invoiceRec?.find(({ uuid: invRecId }) => invRecId.value === invoiceId);
-  })();
-
-  const invoiceDetails: TInvoiceDetails = (() => {
-    if (!tgtInvRec) return [initInvDetailsValue];
-
-    return tgtInvRec?.invoiceDetails?.value.map(({
-      id,
-      value: {
-        billingAmountAfterTax,
-        invoiceItem,
-      },
-    }) => {
-      return ({
-        invoiceDetailId: id,
-        invoiceItem: invoiceItem.value,
-        billingAmount: +billingAmountAfterTax.value,
-      });
-    }) || [initInvDetailsValue];
-  })();
-
   const billedAmount = invoiceRec?.reduce((acc, {
     invoiceDetails: {
       value: invDetailsVal,
@@ -125,6 +99,6 @@ export const convertInvoiceToForm = ({
     remarks: '',
     paymentStatus: '',
 
-    invoiceDetails: invoiceDetails,
+    invoiceDetails: [initInvDetailsValue],
   };
 };

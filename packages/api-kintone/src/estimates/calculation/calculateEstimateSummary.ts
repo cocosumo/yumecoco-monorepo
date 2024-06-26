@@ -47,6 +47,7 @@ export interface EstRowFields {
   rowUnitPriceBeforeTax: number,
   rowCostPrice: number,
   isTaxable: boolean,
+  quantity: number,
 }
 
 export const calculateEstimateSummary = (
@@ -62,11 +63,13 @@ export const calculateEstimateSummary = (
     .reduce<EstimateSummary>(
     (acc, cur) => {
       const {
+        quantity,
         rowUnitPriceBeforeTax,
         rowCostPrice,
         isTaxable,
       } = cur;
 
+      if (!+quantity) return acc;
       const normalizedRowUnitPriceBeforeTax = +convertToHalfWidth(rowUnitPriceBeforeTax);
 
       if (isTaxable) {
@@ -98,7 +101,8 @@ export const calculateEstimateSummary = (
       totalProfit: 0,
       totalTaxAmount: 0,
       totalDiscountAmount: 0,
-    } );
+    }, 
+  );
 
   const {
     totalCostPrice,

@@ -14,7 +14,7 @@ const invoiceDetail = z.object({
   invoiceItem: z.string(),
 
   /** 請求金額 */
-  billingAmount: z.number(),
+  billingAmount: z.coerce.number(),
 
 }).refine(data => {
   // invoiceItemが空でない時、billingAmountも空ではいけない

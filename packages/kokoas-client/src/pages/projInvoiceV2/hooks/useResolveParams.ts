@@ -53,7 +53,6 @@ export const useResolveParams = () => {
         projectRec: projData,
         contractRec: contractData,
         invoiceRec: invoicesB2CByProjId,
-        invoiceId: undefined,
       });
       setNewFormVal(newForm);
 
@@ -78,7 +77,6 @@ export const useResolveParams = () => {
         projectRec: projData,
         contractRec: contractData,
         invoiceRec: invoicesB2CByProjId,
-        invoiceId: invIdFromURL || undefined,
       });
       setNewFormVal({
         ...newForm,

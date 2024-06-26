@@ -40,7 +40,7 @@ export const BillingAmount = ({
             error={!!error}
             helperText={error?.message}
             onChange={(e) => {
-              onChange(e.target.value);
+              onChange(+e.target.value);
               handleChange(+e.target.value, index);
             }}
             required={required}

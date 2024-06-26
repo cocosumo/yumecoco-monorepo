@@ -43,8 +43,11 @@ export const Summary = () => {
         rowUnitPriceBeforeTax,
         rowUnitPriceAfterTax,
         rowCostPrice,
-        
+        quantity,
       } = cur;
+
+      if (!+quantity) return acc;
+
       acc.totalAmountBeforeTax += rowUnitPriceBeforeTax;
       acc.totalAmountAfterTax += rowUnitPriceAfterTax;
       acc.totalCostPrice += rowCostPrice;

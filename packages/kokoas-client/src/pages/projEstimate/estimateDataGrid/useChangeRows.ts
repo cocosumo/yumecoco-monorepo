@@ -25,9 +25,8 @@ export const useChangeRows = () => {
 
 
     switch (fieldName) {
-      case 'quantity':
-      case 'materialProfRate':
-      case 'costPrice': {
+
+      case 'materialProfRate': {
 
         const {
           rowCostPrice: newRowCostPrice,
@@ -53,6 +52,8 @@ export const useChangeRows = () => {
         
         break;
       }
+      case 'quantity':
+      case 'costPrice':
       case 'unitPrice':{
         const {
           rowCostPrice: newRowCostPrice,

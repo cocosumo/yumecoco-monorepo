@@ -52,13 +52,16 @@ export const calculateRowAmount = (
   } = p;
 
   if (p.costPrice && p.quantity && p.profitRate) {
+
+    const resolveQuantity = +p.quantity || 1; // treat 0 as 1
+
     const {
       costPrice: rowCostPrice,
       amountAfterTax: rowUnitPriceAfterTax,
       amountBeforeTax: rowUnitPriceBeforeTax,
       profit: rowProfit,
     } = calculateAmount({
-      costPrice: +p.costPrice * +p.quantity,
+      costPrice: +p.costPrice * resolveQuantity,
       profitRate: +p.profitRate,
       taxRate:  +taxRate,
     });
@@ -69,9 +72,12 @@ export const calculateRowAmount = (
       rowCostPrice,
       rowUnitPriceBeforeTax,
       rowUnitPriceAfterTax,
-      unitPrice: rowUnitPriceBeforeTax / +p.quantity,
+      unitPrice: rowUnitPriceBeforeTax / resolveQuantity,
     };
   } else if (p.unitPrice && p.costPrice && p.quantity) {
+    
+    const resolveQuantity = +p.quantity || 1; // treat 0 as 1
+
     const {
       amountBeforeTax: rowUnitPriceBeforeTax,
       amountAfterTax: rowUnitPriceAfterTax,
@@ -79,8 +85,8 @@ export const calculateRowAmount = (
       profit: rowProfit,
       costPrice: rowCostPrice,
     } = calculateAmount({
-      costPrice: +p.costPrice * +p.quantity,
-      amountBeforeTax: +p.unitPrice * +p.quantity,
+      costPrice: +p.costPrice * resolveQuantity,
+      amountBeforeTax: +p.unitPrice * resolveQuantity,
     });
 
     result = {
@@ -111,6 +117,7 @@ export const calculateRowAmount = (
       profitRate: rowProfitRate,
       rowProfit,
     };
+
   } else {
     //　網羅的にテスト出来ないため、残す
     console.warn('No calculation perfomed', p);

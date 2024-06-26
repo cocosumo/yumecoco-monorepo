@@ -9,7 +9,7 @@ export const PTCommisionRate = () => {
   }) as TForm['projTypeId'];
 
   const { data } = useProjTypeById(projTypeId);
-  
+
   const {
     yumeCommFeeRate,
   } = data || {};

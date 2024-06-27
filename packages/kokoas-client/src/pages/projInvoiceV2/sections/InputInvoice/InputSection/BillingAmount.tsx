@@ -34,14 +34,17 @@ export const BillingAmount = ({
         return (
           <TextField
             {...otherValue}
-            value={value || ''}
+            value={value.toString() || ''}
             label={'請求金額(税込)'}
             size='small'
             error={!!error}
             helperText={error?.message}
             onChange={(e) => {
-              onChange(+e.target.value);
-              handleChange(+e.target.value, index);
+              const billingAmount = e.target.value;
+              if (!isNaN(+billingAmount)) {
+                onChange(+billingAmount);
+                handleChange(+billingAmount, index);
+              }
             }}
             required={required}
           />

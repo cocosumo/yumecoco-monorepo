@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { initialValues } from '../form';
+import { initInvDetailsValue, initialValues } from '../form';
 import { useURLParamsV2 } from 'kokoas-client/src/hooks';
 import { useContractsByProjIdV2, useInvoiceB2CById, useInvoicesB2CByProjId, useProjById } from 'kokoas-client/src/hooksQuery';
 import { convertInvoiceToForm } from '../api/convertInvoiceToForm';
@@ -58,7 +58,8 @@ export const useResolveParams = () => {
       setNewFormVal(newForm);
 
     } else if (projIdFromURL && projData && contractData && invoiceB2CById) {
-      const newInVoiceDetails: TInvoiceDetails = invoiceB2CById.invoiceDetails.value.map(({
+      // 請求書編集
+      let newInVoiceDetails: TInvoiceDetails = invoiceB2CById.invoiceDetails.value.map(({
         id,
         value: invoiceDetail,
       }) => {
@@ -69,8 +70,10 @@ export const useResolveParams = () => {
         });
       });
 
+      if (newInVoiceDetails.length === 0) {
+        newInVoiceDetails = [initInvDetailsValue];
+      }
 
-      // 請求書編集
       const newForm = convertInvoiceToForm({
         projectRec: projData,
         contractRec: contractData,

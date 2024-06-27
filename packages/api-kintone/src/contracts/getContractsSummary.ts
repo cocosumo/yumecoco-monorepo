@@ -3,6 +3,7 @@ import { RecordType } from './config';
 
 /**
  * K165依頼により、契約金額の合計を計算する
+ * k343依頼により、2024.06以降の新築物件のみ紹介料率を変更
  * 
  * 関数化にして、フロントエンドとバックエンドを共有して、
  * 変更があった場合に両方修正する必要がなくなる
@@ -18,6 +19,7 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       {
         contractType,
         contractAddType,
+        contractDate,
         includePlanContractAmt,
         totalContractAmt, // 契約金額税込
         tax,
@@ -41,6 +43,12 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
         newAcc.設計契約金含み = newAcc.設計契約金含み || includePlanContractAmt.value === '1';
         newAcc.契約金額税込 += +totalContractAmt.value;
         newAcc.本契約件数++;
+
+        newAcc.contractDate = contractDate.value;
+        newAcc.新築紹介料対象金額 += +totalContractAmt.value;
+        if (hasRefund.value === 'はい') {
+          newAcc.新築紹介料対象金額 -= +refundAmt.value;
+        }
 
       } else if (contractType.value === '追加') {
         if (contractAddType.value !== '減額工事' && contractAddType.value !== '返金') {
@@ -108,6 +116,8 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       本契約件数: 0,
       追加契約件数: 0,
       設計契約件数: 0,
+      新築紹介料対象金額: 0, // k343
+      contractDate: '',
     },
   );
 
@@ -121,6 +131,8 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       // K244 ただし、設計契約１つのみの工事は設計契約の金額を契約金額として計算してほしい
       result.契約金額税込 += result.設計契約金額税込;
     }
+    
+    result.新築紹介料対象金額 += result.設計契約金額税込; 
   }
 
   result.合計受注金額税込 = result.追加金額税込 + result.契約金額税込;

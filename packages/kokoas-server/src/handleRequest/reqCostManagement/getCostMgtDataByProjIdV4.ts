@@ -81,7 +81,6 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
     projRec,
     projTypeRec,
     empRecs: employeesRec,
-
   });
 
   // 工事データの店舗を保持できるように、顧客グループのルークアップに、店舗IDをコピーしないようにしました。
@@ -172,6 +171,7 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
     tax: contracts?.税率 ?? 0.1,
     hasRefund: contracts?.返金 ?? false,
     subsidyAmt: contracts?.補助金Amt ?? 0,
+    contractDate: new Date(contracts.contractDate),
   });
 
   const formatProjNum = formatDataId(projDataId.value);

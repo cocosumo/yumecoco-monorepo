@@ -7,21 +7,32 @@ describe('calculateEstimateSummary', () => {
       rowUnitPriceBeforeTax: 500,
       rowCostPrice: 50,
       isTaxable: true,
+      quantity: 1,
     },
     {
       rowUnitPriceBeforeTax: 1000,
       rowCostPrice: 100,
       isTaxable: true,
+      quantity: 1,
     },
     {
       rowUnitPriceBeforeTax: -10,
       rowCostPrice: -10,
       isTaxable: true,
+      quantity: 1,
     },
     {
       rowUnitPriceBeforeTax: -50,
       rowCostPrice: -50,
       isTaxable: true,
+      quantity: 1,
+    },
+    {
+      // must be ignored in totals since quantity is 0
+      rowUnitPriceBeforeTax: 100000,
+      rowCostPrice: 1000,
+      isTaxable: true,
+      quantity: 0, 
     },
   ]; 
 

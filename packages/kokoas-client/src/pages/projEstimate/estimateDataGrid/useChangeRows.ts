@@ -25,9 +25,8 @@ export const useChangeRows = () => {
 
 
     switch (fieldName) {
-      case 'quantity':
-      case 'materialProfRate':
-      case 'costPrice': {
+
+      case 'materialProfRate': {
 
         const {
           rowCostPrice: newRowCostPrice,
@@ -53,6 +52,7 @@ export const useChangeRows = () => {
         
         break;
       }
+      case 'quantity':
       case 'unitPrice':{
         const {
           rowCostPrice: newRowCostPrice,
@@ -66,7 +66,6 @@ export const useChangeRows = () => {
           taxRate,
         });
 
-
         newRow = {
           ...newRow,
           rowUnitPriceBeforeTax: newUnitPriceBeforeTax,
@@ -78,6 +77,29 @@ export const useChangeRows = () => {
         break;
       }
 
+      case 'costPrice': {
+        const {
+          rowCostPrice: newRowCostPrice,
+          unitPrice: newUnitPrice,
+          rowUnitPriceBeforeTax: newUnitPriceBeforeTax,
+          rowUnitPriceAfterTax: newUnitPriceAfterTax,
+          profitRate: newProfitRate,
+        } = calculateRowAmount({
+          profitRate,
+          costPrice,
+          quantity,
+          taxRate,
+        });
+
+        newRow = {
+          ...newRow,
+          unitPrice: newUnitPrice,
+          rowUnitPriceBeforeTax: newUnitPriceBeforeTax,
+          rowUnitPriceAfterTax: newUnitPriceAfterTax,
+          rowCostPrice: newRowCostPrice,
+          materialProfRate: roundTo(newProfitRate * 100, 2),
+        };
+      }
 
     }
 

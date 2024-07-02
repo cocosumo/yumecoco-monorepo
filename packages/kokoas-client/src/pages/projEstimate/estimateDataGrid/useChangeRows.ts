@@ -53,7 +53,6 @@ export const useChangeRows = () => {
         break;
       }
       case 'quantity':
-      case 'costPrice':
       case 'unitPrice':{
         const {
           rowCostPrice: newRowCostPrice,
@@ -78,6 +77,29 @@ export const useChangeRows = () => {
         break;
       }
 
+      case 'costPrice': {
+        const {
+          rowCostPrice: newRowCostPrice,
+          unitPrice: newUnitPrice,
+          rowUnitPriceBeforeTax: newUnitPriceBeforeTax,
+          rowUnitPriceAfterTax: newUnitPriceAfterTax,
+          profitRate: newProfitRate,
+        } = calculateRowAmount({
+          profitRate,
+          costPrice,
+          quantity,
+          taxRate,
+        });
+
+        newRow = {
+          ...newRow,
+          unitPrice: newUnitPrice,
+          rowUnitPriceBeforeTax: newUnitPriceBeforeTax,
+          rowUnitPriceAfterTax: newUnitPriceAfterTax,
+          rowCostPrice: newRowCostPrice,
+          materialProfRate: roundTo(newProfitRate * 100, 2),
+        };
+      }
 
     }
 

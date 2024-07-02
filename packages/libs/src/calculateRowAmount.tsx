@@ -51,9 +51,10 @@ export const calculateRowAmount = (
     taxRate = 0.1,
   } = p;
 
-  const resolveQuantity = Number(p.quantity);
+  const resolvedQuantity = Number(p.quantity);
 
-  if (p.unitPrice && p.costPrice && !resolveQuantity) {
+  if (p.unitPrice && p.costPrice && !resolvedQuantity) {
+
 
     const {
       profitRate: rowProfitRate,
@@ -71,7 +72,7 @@ export const calculateRowAmount = (
       profitRate: rowProfitRate,
       rowProfit,
     };
-  } else if (p.costPrice && p.profitRate && !resolveQuantity) {
+  } else if (p.costPrice && p.profitRate && !resolvedQuantity) {
 
     const {
       amountBeforeTax: rowUnitPriceBeforeTax,
@@ -89,8 +90,7 @@ export const calculateRowAmount = (
       rowUnitPriceAfterTax: 0,
       rowProfit,
     };
-  } else if (p.costPrice && resolveQuantity && p.profitRate) {
-
+  } else if (p.costPrice && resolvedQuantity && p.profitRate) {
 
     const {
       costPrice: rowCostPrice,
@@ -98,7 +98,7 @@ export const calculateRowAmount = (
       amountBeforeTax: rowUnitPriceBeforeTax,
       profit: rowProfit,
     } = calculateAmount({
-      costPrice: +p.costPrice * resolveQuantity,
+      costPrice: +p.costPrice * resolvedQuantity,
       profitRate: +p.profitRate,
       taxRate:  +taxRate,
     });
@@ -109,7 +109,7 @@ export const calculateRowAmount = (
       rowCostPrice,
       rowUnitPriceBeforeTax,
       rowUnitPriceAfterTax,
-      unitPrice: rowUnitPriceBeforeTax / resolveQuantity,
+      unitPrice: rowUnitPriceBeforeTax / resolvedQuantity,
     };
   } else if (p.unitPrice && p.costPrice && p.quantity) {
     
@@ -120,8 +120,8 @@ export const calculateRowAmount = (
       profit: rowProfit,
       costPrice: rowCostPrice,
     } = calculateAmount({
-      costPrice: +p.costPrice * resolveQuantity,
-      amountBeforeTax: +p.unitPrice * resolveQuantity,
+      costPrice: +p.costPrice * resolvedQuantity,
+      amountBeforeTax: +p.unitPrice * resolvedQuantity,
     });
 
     result = {
@@ -142,7 +142,7 @@ export const calculateRowAmount = (
       profit: rowProfit,
       costPrice: rowCostPrice,
     } = calculateAmount({
-      amountBeforeTax: +p.unitPrice * resolveQuantity,
+      amountBeforeTax: +p.unitPrice * resolvedQuantity,
       costPrice: 0,
     });
 

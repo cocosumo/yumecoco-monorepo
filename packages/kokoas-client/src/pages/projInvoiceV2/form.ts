@@ -2,12 +2,13 @@ import { TForm, TInvoiceDetail } from './schema';
 
 
 export const initInvDetailsValue: TInvoiceDetail = {
+  invoiceDetailId: '',
   invoiceItem: '',
   billingAmount: 0,
 };
 
 export const initialValues: TForm = {
-  invoiceId: '',
+  invoiceId: undefined,
   invoiceStatus: '',
   invoiceDataId: '',
   projId: '',
@@ -15,6 +16,7 @@ export const initialValues: TForm = {
   excludedPlanContracts: [],
   hasExcludedPlanContractAmt: false,
   custGroupId: '',
+  custName: '',
   projName: '',
   projDataId: '',
   storeName: '',
@@ -29,4 +31,5 @@ export const initialValues: TForm = {
   payMethodPlan: '',
   invoiceDetails: [initInvDetailsValue],
   remarks: '',
+  paymentStatus: '',
 };

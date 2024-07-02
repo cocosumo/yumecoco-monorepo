@@ -10,12 +10,10 @@ export const convertInvoiceToForm = ({
   invoiceRec,
   projectRec,
   contractRec,
-  invoiceId,
 }: {
   invoiceRec: IInvoiceb2c[] | undefined
   projectRec: IProjects
   contractRec: IContracts[]
-  invoiceId: string | undefined
 }): TForm => {
 
   const {
@@ -24,6 +22,7 @@ export const convertInvoiceToForm = ({
     dataId,
     uuid,
     custGroupId,
+    custNames,
     agents,
   } = projectRec;
   const personInCharge = agents.value.find(({ value: { agentName, agentType } }) => {
@@ -33,7 +32,7 @@ export const convertInvoiceToForm = ({
   const hasExcludedPlanContractAmt = contractRec.some(({ includePlanContractAmt, contractType }) =>
     (includePlanContractAmt.value === '1') && (contractType.value === '契約'));
 
-  
+
   const sortedContracts = sortContracts(contractRec);
 
   const contractDatas = sortedContracts.reduce((acc, {
@@ -60,29 +59,6 @@ export const convertInvoiceToForm = ({
     .round()
     .toNumber();
 
-
-
-  const tgtInvRec = (() => {
-    if (!invoiceId) return {} as IInvoiceb2c;
-    invoiceRec?.find(({ uuid: invRecId }) => invRecId.value === invoiceId);
-  })();
-
-  const invoiceDetails = (() => {
-    if (!tgtInvRec) return [initInvDetailsValue];
-
-    return tgtInvRec?.invoiceDetails?.value.map(({
-      value: {
-        billingAmountAfterTax,
-        invoiceItem,
-      },
-    }) => {
-      return ({
-        invoiceItem: invoiceItem.value,
-        billingAmount: +billingAmountAfterTax.value,
-      });
-    }) || [initInvDetailsValue];
-  })();
-
   const billedAmount = invoiceRec?.reduce((acc, {
     invoiceDetails: {
       value: invDetailsVal,
@@ -98,13 +74,14 @@ export const convertInvoiceToForm = ({
 
 
   return {
-    invoiceId: tgtInvRec?.uuid?.value || '',
-    invoiceStatus: tgtInvRec?.invoiceStatus?.value || '',
-    invoiceDataId: tgtInvRec?.invoiceDataId?.value || '',
+    invoiceId: undefined,
+    invoiceStatus: '新規作成',
+    invoiceDataId: '',
     contractIds: contractDatas.validContracts,
     excludedPlanContracts: contractDatas.planContract,
     hasExcludedPlanContractAmt: hasExcludedPlanContractAmt,
     custGroupId: custGroupId.value,
+    custName: custNames.value,
     projId: uuid.value,
     projName: projName.value || '',
     storeName: store.value || '',
@@ -117,9 +94,10 @@ export const convertInvoiceToForm = ({
     billingTotalAmount: billedAmount || 0,
     invoiceIssueDate: null,
     scheduledPayDate: null,
-    payMethodPlan: tgtInvRec?.payMethodPlan?.value || '',
-    remarks: tgtInvRec?.remarks?.value || '',
+    payMethodPlan: '',
+    remarks: '',
+    paymentStatus: '',
 
-    invoiceDetails: invoiceDetails,
+    invoiceDetails: [initInvDetailsValue],
   };
 };

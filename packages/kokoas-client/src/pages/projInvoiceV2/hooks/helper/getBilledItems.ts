@@ -10,16 +10,23 @@ export type BilledItem = {
 
 export const getBilledItems = ({
   invoices,
+  invoiceId,
 }: {
   invoices: IInvoiceb2c[] | undefined
+  invoiceId: string,
 }) => {
 
   if (!invoices) return [] as BilledItem[];
 
   const billedItems = invoices.reduce((acc, invoice) => {
-    const { invoiceDetails: {
-      value: tgtInvoiceDetails,
-    } } = invoice;
+    const {
+      uuid,
+      invoiceDetails: {
+        value: tgtInvoiceDetails,
+      },
+    } = invoice;
+
+    if (invoiceId === uuid.value) return acc;
 
     for (let i = 0; i < tgtInvoiceDetails.length; i++) {
       const itemContent = tgtInvoiceDetails[i].value.invoiceItem.value.split('-');

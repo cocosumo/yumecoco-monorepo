@@ -20,7 +20,7 @@ export default function MainMenu() {
       <CustomerMenu />
       <ConstructionMenu />
       <ContractMenu />
-      {isShowDev && <OrderMenu />}
+      <OrderMenu />
       {isShowDev && <PaymentMenu />}
 
       <Divider />

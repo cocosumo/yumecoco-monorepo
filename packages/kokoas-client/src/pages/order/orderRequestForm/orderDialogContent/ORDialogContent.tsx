@@ -1,4 +1,4 @@
-import { Alert, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import { SelectSupplier } from './selectSupplier/SelectSupplier';
 import { OrderName } from './OrderName';
 import { OrderMethod } from './orderMethod/OrderMethod';
@@ -12,12 +12,6 @@ export const ORDialogContent = () => {
 
   return (
     <ORDialogContentContainer>
-      <Alert 
-        severity={'warning'}
-      >
-        検証中です。取引先を設定しても、system@cocosumo.co.jpに送信されます。
-        CCとBCCは入力したメールアドレスに送信されます。
-      </Alert>
 
       <SelectSupplier />
       <OrderName />

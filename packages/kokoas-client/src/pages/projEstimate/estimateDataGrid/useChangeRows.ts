@@ -67,7 +67,6 @@ export const useChangeRows = () => {
           taxRate,
         });
 
-
         newRow = {
           ...newRow,
           rowUnitPriceBeforeTax: newUnitPriceBeforeTax,

@@ -51,9 +51,46 @@ export const calculateRowAmount = (
     taxRate = 0.1,
   } = p;
 
-  if (p.costPrice && p.quantity && p.profitRate) {
+  const resolveQuantity = Number(p.quantity);
 
-    const resolveQuantity = +p.quantity || 1; // treat 0 as 1
+  if (p.unitPrice && p.costPrice && !resolveQuantity) {
+
+    const {
+      profitRate: rowProfitRate,
+      profit: rowProfit,
+    } = calculateAmount({
+      amountBeforeTax: +p.unitPrice,
+      costPrice: +p.costPrice,
+    });
+
+    result = {
+      ...result,
+      rowCostPrice: 0,
+      rowUnitPriceBeforeTax: 0,
+      rowUnitPriceAfterTax: 0,
+      profitRate: rowProfitRate,
+      rowProfit,
+    };
+  } else if (p.costPrice && p.profitRate && !resolveQuantity) {
+
+    const {
+      amountBeforeTax: rowUnitPriceBeforeTax,
+      profit: rowProfit,
+    } = calculateAmount({
+      costPrice: +p.costPrice,
+      profitRate: +p.profitRate,
+      taxRate:  +taxRate,
+    });
+
+    result = {
+      ...result,
+      unitPrice: rowUnitPriceBeforeTax,
+      rowUnitPriceBeforeTax: 0,
+      rowUnitPriceAfterTax: 0,
+      rowProfit,
+    };
+  } else if (p.costPrice && resolveQuantity && p.profitRate) {
+
 
     const {
       costPrice: rowCostPrice,
@@ -76,8 +113,6 @@ export const calculateRowAmount = (
     };
   } else if (p.unitPrice && p.costPrice && p.quantity) {
     
-    const resolveQuantity = +p.quantity || 1; // treat 0 as 1
-
     const {
       amountBeforeTax: rowUnitPriceBeforeTax,
       amountAfterTax: rowUnitPriceAfterTax,
@@ -98,6 +133,8 @@ export const calculateRowAmount = (
       rowProfit,
     };
   } else if (p.unitPrice && p.quantity && !p.costPrice ) { 
+
+
     const {
       amountBeforeTax: rowUnitPriceBeforeTax,
       amountAfterTax: rowUnitPriceAfterTax,
@@ -105,7 +142,7 @@ export const calculateRowAmount = (
       profit: rowProfit,
       costPrice: rowCostPrice,
     } = calculateAmount({
-      amountBeforeTax: +p.unitPrice * +p.quantity,
+      amountBeforeTax: +p.unitPrice * resolveQuantity,
       costPrice: 0,
     });
 

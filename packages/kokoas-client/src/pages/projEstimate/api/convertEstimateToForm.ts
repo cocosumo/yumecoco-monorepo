@@ -51,7 +51,6 @@ export const convertEstimateToForm = (
 
       const {
         costPrice,
-        quantity,
         profitRate,
         rowCostPrice,
         rowUnitPriceBeforeTax,
@@ -73,7 +72,7 @@ export const convertEstimateToForm = (
         ...initialRow,
         itemId: String(itemId),
         costPrice,
-        quantity,
+        quantity: +数量.value,
         rowCostPrice,
         majorItem: 大項目.value,
         middleItem: 中項目.value,

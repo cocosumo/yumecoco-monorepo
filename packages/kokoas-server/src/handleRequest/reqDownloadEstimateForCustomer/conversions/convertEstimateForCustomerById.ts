@@ -81,6 +81,7 @@ export const convertEstimateForCustomerById = async (estimateId: string) => {
   const templateFilePath = getFilePath({
     fileName: '見積書',
     fileType: 'xlsx',
+    version: '20240708',
   });
 
   // Read excel file.
@@ -150,22 +151,32 @@ export const convertEstimateForCustomerById = async (estimateId: string) => {
   /****************
    * 見積書内訳
    * **************/
+
   (function shSummary() {
     const ws = initializeWorksheet('見積内訳');
+    const shokeihiBeforeTax = estimatesTable
+      .reduce((acc, curr) => {
+        if (curr.value.大項目.value.includes('諸経費')) {
+          return acc + Number(curr.value.単価.value) * Number(curr.value.数量.value);
+        }
+
+        return acc;
+      }, 0);
 
     // 非割引額
-    ws.getCell('G3').value = totalAmountBeforeDiscount;
-    ws.getCell('G5').value = totalAmountBeforeDiscount;
+    ws.getCell('G3').value = totalAmountBeforeDiscount - shokeihiBeforeTax;
+    ws.getCell('G5').value = shokeihiBeforeTax;
+    ws.getCell('G6').value = totalAmountBeforeDiscount;
 
 
     // 割引額
-    ws.getCell('G6').value = totalDiscountAmount;
+    ws.getCell('G7').value = totalDiscountAmount;
 
     // 税額
-    ws.getCell('G7').value = totalTaxAmount;
+    ws.getCell('G8').value = totalTaxAmount;
 
     // 合計
-    ws.getCell('G8').value = totalAmountAfterTax;
+    ws.getCell('G9').value = totalAmountAfterTax;
   })();
 
 

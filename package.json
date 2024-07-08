@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "genenv": "npx gen-env-types .env -o ./types/env.d.ts -e ."
+    "genenv": "npx gen-env-types .env -o ./types/env.d.ts -e .",
+    "test": "jest"
   },
   "private": true,
   "devDependencies": {

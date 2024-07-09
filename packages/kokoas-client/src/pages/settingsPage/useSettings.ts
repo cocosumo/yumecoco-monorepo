@@ -33,6 +33,16 @@ export const useSettings = () => {
       settingsDescription: '見積部材名と原価の登録',
       link: 'https://rdmuhwtt6gx7.cybozu.com/k/69/',
     },
+    {
+      settingsName: '取引先事業者設定',
+      settingsDescription: '取引先事業者の設定',
+      link: 'https://rdmuhwtt6gx7.cybozu.com/k/308/',
+    },
+    {
+      settingsName: 'ANDPAD社外メンバー',
+      settingsDescription: 'ANDPAD社外メンバーの設定',
+      link: 'https://rdmuhwtt6gx7.cybozu.com/k/309/',
+    },
   ]);
 
   return {

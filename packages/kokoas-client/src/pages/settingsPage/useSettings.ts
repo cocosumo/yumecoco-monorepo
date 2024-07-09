@@ -39,7 +39,7 @@ export const useSettings = () => {
       link: 'https://rdmuhwtt6gx7.cybozu.com/k/308/',
     },
     {
-      settingsName: 'ANDPAD社外メンバー一覧',
+      settingsName: 'ANDPAD社外メンバー',
       settingsDescription: 'ANDPAD社外メンバーの設定',
       link: 'https://rdmuhwtt6gx7.cybozu.com/k/309/',
     },

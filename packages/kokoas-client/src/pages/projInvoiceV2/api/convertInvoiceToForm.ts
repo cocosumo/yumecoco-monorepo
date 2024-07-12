@@ -101,6 +101,7 @@ export const convertInvoiceToForm = ({
 
 
   return {
+    invoice$Id: tgtInvRec?.$id.value || '',
     invoiceId: undefined,
     invoiceStatus: '新規作成',
     invoiceDataId: '',

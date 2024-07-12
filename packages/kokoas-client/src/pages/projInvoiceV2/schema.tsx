@@ -28,6 +28,8 @@ const invoiceDetail = z.object({
 });
 
 export const schema = z.object({
+  /** レコードID */
+  invoice$Id: z.string(),
 
   /** 請求書のuuid */
   invoiceId: z.string().uuid()

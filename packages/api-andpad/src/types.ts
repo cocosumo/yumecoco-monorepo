@@ -35,6 +35,7 @@ export const storeNamesAndpad = [
   '藤沢店', 
   '岩田店',
   '日進店',
+  '長久手店',
 ] as const;
 export type StoreNamesAndpad = typeof storeNamesAndpad[number];
 
@@ -53,6 +54,7 @@ export const storeMap : Record<string, StoreNamesAndpad> = {
   豊田美里店: '美里店',
   豊橋岩田店: '岩田店',
   日進店: '日進店',
+  長久手店: '長久手店',
 
 };
 

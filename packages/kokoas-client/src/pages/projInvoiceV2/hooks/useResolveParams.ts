@@ -69,7 +69,6 @@ export const useResolveParams = () => {
         });
       });
 
-
       // 請求書編集
       const newForm = convertInvoiceToForm({
         projectRec: projData,
@@ -79,6 +78,7 @@ export const useResolveParams = () => {
       });
       setNewFormVal({
         ...newForm,
+        invoice$Id: invoiceB2CById?.$id?.value,
         invoiceId: invoiceB2CById?.uuid?.value,
         invoiceStatus: invoiceB2CById?.invoiceStatus?.value,
         invoiceDataId: invoiceB2CById?.invoiceDataId?.value,

@@ -21,11 +21,9 @@ export const emailOrderToSupplier = async (orderSlipResult: GetDownloadOrderSlip
   const sendParams: SendParams = {
     to: {
       // ※※※ ある程度安定したら、本番環境へみ送信するようにする ※※※
+      email: isProd ? data.supplierOfficerEmail :  testEmail,
+      name: isProd ?   data.supplierOfficer1 || '担当者' : testEmail,
 
-      //email: isProd ? data.supplierOfficerEmail :  testEmail,
-      //name: isProd ?   data.supplierOfficer1 || '担当者' : testEmail,
-      email: testEmail,
-      name: testEmail,
     },
     from: 'system@cocosumo.co.jp',
     subject: isProd 

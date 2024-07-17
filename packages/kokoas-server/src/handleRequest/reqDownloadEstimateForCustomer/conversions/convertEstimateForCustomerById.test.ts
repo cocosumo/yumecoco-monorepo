@@ -5,7 +5,7 @@ import { expect, describe, it } from '@jest/globals';
 
 describe('convertEstimateForCustomerById', () => {
   // https://rdmuhwtt6gx7.cybozu.com/k/176/#/project/estimate/register?projEstimateId=7f595c5f-09bc-406f-9b0b-5454f2c30d63
-  const testEstimateId = '7f595c5f-09bc-406f-9b0b-5454f2c30d63';
+  const testEstimateId = '2c6e9d22-17a0-4aab-ab95-077c617fe84b';
 
   it('見積もりIDが見つからない場合、エラーが発生します', async () => {
     await expect(convertEstimateForCustomerById('invalidId'))

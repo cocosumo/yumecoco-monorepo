@@ -14,7 +14,7 @@ const invoiceDetail = z.object({
   invoiceItem: z.string(),
 
   /** 請求金額 */
-  billingAmount: z.number(),
+  billingAmount: z.coerce.number(),
 
 }).refine(data => {
   // invoiceItemが空でない時、billingAmountも空ではいけない
@@ -106,6 +106,16 @@ export const schema = z.object({
   /** 入金状態(ステータス) */
   paymentStatus: z.string(),
 
+}).superRefine((data, ctx) => {
+  const hasAtleastOneAmount = data.invoiceDetails.some((invDetail) => !!invDetail.billingAmount);
+
+  if (!hasAtleastOneAmount) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: '請求金額が1つ以上必要です',
+      path: ['invoiceDetails[0].billingAmount'],
+    });
+  }
 });
 
 export type TForm = z.infer<typeof schema>;

@@ -5,7 +5,7 @@ import { initInvDetailsValue } from '../form';
 import { sortContracts } from '../helper/sortContracts';
 
 
-
+// TODO: Need refactoring as variable names does not match the actual data.
 export const convertInvoiceToForm = ({
   invoiceRec,
   projectRec,
@@ -72,8 +72,8 @@ export const convertInvoiceToForm = ({
     return acc + amount;
   }, 0);
 
-
   return {
+    invoice$Id: '',
     invoiceId: undefined,
     invoiceStatus: '新規作成',
     invoiceDataId: '',

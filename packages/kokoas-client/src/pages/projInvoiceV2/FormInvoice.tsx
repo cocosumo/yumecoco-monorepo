@@ -34,14 +34,16 @@ export const FormInvoice = () => {
     reset({ ...newFormValues });
   }, [reset, newFormValues]);
 
-  const { projId } = newFormValues;
+  const { projId, invoice$Id } = newFormValues;
 
+
+  const isEdit = !!invoice$Id;
 
   return (
     <Fragment>
       <FormInvoiceContainer formReturn={formReturn}>
         <PageTitle3
-          label={'顧客請求書作成'}
+          label={`顧客請求書${isEdit ? '編集' : '新規作成'}`}
         />
 
         <SearchProjects

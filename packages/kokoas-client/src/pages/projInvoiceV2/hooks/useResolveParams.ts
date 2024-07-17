@@ -69,10 +69,11 @@ export const useResolveParams = () => {
         });
       });
 
+
       if (newInVoiceDetails.length === 0) {
         newInVoiceDetails = [initInvDetailsValue];
       }
-
+      
       const newForm = convertInvoiceToForm({
         projectRec: projData,
         contractRec: contractData,
@@ -80,6 +81,7 @@ export const useResolveParams = () => {
       });
       setNewFormVal({
         ...newForm,
+        invoice$Id: invoiceB2CById?.$id?.value,
         invoiceId: invoiceB2CById?.uuid?.value,
         invoiceStatus: invoiceB2CById?.invoiceStatus?.value,
         invoiceDataId: invoiceB2CById?.invoiceDataId?.value,
